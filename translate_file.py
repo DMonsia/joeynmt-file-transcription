@@ -76,7 +76,7 @@ def translate_file(cfg: Dict, file_to_translate: str, output_path: str) -> None:
     if output_path is not None:
         # write to outputfile if given
         out_file = Path(output_path).expanduser()
-        pd.DataFrame({"id": row_ids, args.data["src"]["lang"]: all_hypotheses}).to_csv(
+        pd.DataFrame({"ID": row_ids, "Target": all_hypotheses}).to_csv(
             out_file, index=False
         )
         logger.info("Translations saved to: %s.", out_file)
@@ -100,23 +100,6 @@ def main():
 
     ap.add_argument(
         "-o", "--output-path", type=str, help="Path for saving translation output"
-    )
-
-    ap.add_argument(
-        "-a",
-        "--save-attention",
-        action="store_true",
-        help="Save attention visualizations",
-    )
-
-    ap.add_argument("-s", "--save-scores", action="store_true", help="Save scores")
-
-    ap.add_argument(
-        "-t", "--skip-test", action="store_true", help="Skip test after training"
-    )
-
-    ap.add_argument(
-        "-d", "--use-ddp", action="store_true", help="Invoke DDP environment"
     )
 
     args = ap.parse_args()
